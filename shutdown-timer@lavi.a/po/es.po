@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Shutdown Timer\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-12 11:13+0200\n"
-"PO-Revision-Date: 2012-02-14 02:13+0200\n"
+"POT-Creation-Date: 2012-02-14 14:06+0200\n"
+"PO-Revision-Date: 2012-02-14 14:07+0200\n"
 "Last-Translator: Lavi .A <laviams@gmail.com>\n"
 "Language-Team: Kyala Mariee' Johns\n"
 "Language: es\n"
@@ -15,41 +15,50 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
-"X-Poedit-Basepath: /home/lavi/Development/git/shutdown-timer@lavi.a\n"
+"X-Poedit-Basepath: /home/lavi/Development/Gnome Shell Extensions/shutdown-timer@lavi.a\n"
 "X-Poedit-Language: Spanish\n"
 "X-Poedit-Country: SPAIN\n"
-"X-Poedit-SearchPath-0: /home/lavi/Development/git/shutdown-timer@lavi.a\n"
+"X-Poedit-SearchPath-0: /home/lavi/Development/Gnome Shell Extensions/shutdown-timer@lavi.a\n"
 
-#: /home/lavi/Development/git/shutdown-timer@lavi.a/extension.js:45
+#: /home/lavi/Development/Gnome Shell
+#: Extensions/shutdown-timer@lavi.a/extension.js:52
 msgid ":"
 msgstr ":"
 
-#: /home/lavi/Development/git/shutdown-timer@lavi.a/extension.js:108
+#: /home/lavi/Development/Gnome Shell
+#: Extensions/shutdown-timer@lavi.a/extension.js:116
 msgid "Delay (minutes/time) e.g. 70 or 18:30"
 msgstr "Retraso (minutos/hora) por ejemplo, 70 o 18:30"
 
-#: /home/lavi/Development/git/shutdown-timer@lavi.a/extension.js:140
+#: /home/lavi/Development/Gnome Shell
+#: Extensions/shutdown-timer@lavi.a/extension.js:148
 msgid "Active"
 msgstr "Activo"
 
-#: /home/lavi/Development/git/shutdown-timer@lavi.a/extension.js:144
+#: /home/lavi/Development/Gnome Shell
+#: Extensions/shutdown-timer@lavi.a/extension.js:152
 msgid "Notifications"
 msgstr "Notificaciones"
 
-#: /home/lavi/Development/git/shutdown-timer@lavi.a/extension.js:272
+#: /home/lavi/Development/Gnome Shell
+#: Extensions/shutdown-timer@lavi.a/extension.js:280
 msgid "3"
 msgstr "3"
 
-#: /home/lavi/Development/git/shutdown-timer@lavi.a/extension.js:318
-msgid "The System will Power Off at %"
-msgstr "El sistema se apagará en %"
+#: /home/lavi/Development/Gnome Shell
+#: Extensions/shutdown-timer@lavi.a/extension.js:326
+#, c-format
+msgid "The System will Power Off at %s"
+msgstr "El sistema se apagará en %s"
 
-#: /home/lavi/Development/git/shutdown-timer@lavi.a/extension.js:319
+#: /home/lavi/Development/Gnome Shell
+#: Extensions/shutdown-timer@lavi.a/extension.js:327
 msgid "Timer is currently inactive."
 msgstr "El temporizador está actualmente inactivo."
 
-#: /home/lavi/Development/git/shutdown-timer@lavi.a/extension.js:352
+#: /home/lavi/Development/Gnome Shell
+#: Extensions/shutdown-timer@lavi.a/extension.js:360
 #, c-format
-msgid "The system will power off in % minutes."
-msgstr "El sistema se apagará en unos minutos %."
+msgid "The system will power off in %s minutes."
+msgstr "El sistema se apagará en unos minutos %s."
 

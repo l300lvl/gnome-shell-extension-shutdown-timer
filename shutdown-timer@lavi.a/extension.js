@@ -45,6 +45,7 @@ const GnomeSession = imports.misc.gnomeSession;
 const Gettext = imports.gettext.domain('shutdown-timer');
 const _ = Gettext.gettext;
 //Variables
+let timeout;
 let user_locale_path; //Defined in [init]
 let remainL; //Label: Remaining time
 let timeL;	//Label: Power Off scheduled time
@@ -90,6 +91,7 @@ function disable() {
 	tactive = false;
 	tick = 0;
 	inputSec = inputLast;
+	Mainloop.source_remove(timeout);
 }
 //Function: init_items - draw and define the menu.
 function init_items(button) {
@@ -260,7 +262,7 @@ function Count()
 	if (tactive) {
 		remainL.text = remainStr(inputSec, tick);
 		tick=tick+1;
-		Mainloop.timeout_add_seconds(1, Lang.bind(this, Count));
+		timeout = Mainloop.timeout_add_seconds(1, Lang.bind(this, Count));;
 		if ((notifications) && (((inputSec - tick) == 60) || (((inputSec - tick) % 900 == 0) && ((inputSec - tick) < 7200)) || ((inputSec - tick) % 3600 == 0))) {
 			ntf((inputSec - tick) / 60);
 		}
@@ -321,11 +323,11 @@ function timeStr(h,m,delay) {
 }
 //Function: print_timeL - change text of Time Label. time[time string],active[bool]
 function print_timeL(time, active) {
-	var on = _("The System will Power Off at %");
+	var on = _("The System will Power Off at %s");
 	var off = _("Timer is currently inactive.");
 	if (active) {
-		var sign = on.indexOf("%");
-		return on.substring(0, sign) + time + on.substring(sign + 1, on.length);
+		var sign = on.indexOf("%s");
+		return on.substring(0, sign) + time + on.substring(sign + 2, on.length);
 	} else {
 		return off;
 	}
@@ -355,9 +357,9 @@ function remainStr(iS, eS) {
 //Function: ntf - Send desktop notification
 function ntf(t)
 {
-	var msg = _("The system will power off in % minutes.")	
-	var sign = msg.indexOf("%");
-	msg = msg.substring(0, sign) + t + msg.substring(sign + 1, msg.length);    
+	var msg = _("The system will power off in %s minutes.")	
+	var sign = msg.indexOf("%s");
+	msg = msg.substring(0, sign) + t + msg.substring(sign + 2, msg.length);    
 	let src = new MessageTray.SystemNotificationSource();
     Main.messageTray.add(src);
     let notification = new MessageTray.Notification(src, msg, null);
