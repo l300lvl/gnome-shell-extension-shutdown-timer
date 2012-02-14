@@ -1,5 +1,0 @@
-For customization open the file 'extension.js'. edit the declared lines and carefully read the comments next to each line.
-For questions, requests and bugs:
-Launchpad:	https://launchpad.net/shutdown-timer
-Git:		https://github.com/lavi741/gnome-shell-extension-shutdown-timer
-License is described in the file 'COPYING'.
