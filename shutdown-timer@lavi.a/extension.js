@@ -357,7 +357,11 @@ function remainStr(iS, eS) {
 //Function: ntf - Send desktop notification
 function ntf(t)
 {
+<<<<<<< HEAD
 	var msg = _("The system will power off in %s minutes.");
+=======
+	var msg = _("The system will power off in %s minutes.")	
+>>>>>>> 37f13f0822d3a7033b818983da93a6990d727f6c
 	var sign = msg.indexOf("%s");
 	msg = msg.substring(0, sign) + t + msg.substring(sign + 2, msg.length);    
 	let src = new MessageTray.SystemNotificationSource();
