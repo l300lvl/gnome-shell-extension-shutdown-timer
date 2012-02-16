@@ -45,7 +45,7 @@ const GnomeSession = imports.misc.gnomeSession;
 const Gettext = imports.gettext.domain('shutdown-timer');
 const _ = Gettext.gettext;
 //Variables
-let timeout;
+let timeout; //Mainloop. defined and used in count() and disable()
 let user_locale_path; //Defined in [init]
 let remainL; //Label: Remaining time
 let timeL;	//Label: Power Off scheduled time
@@ -90,7 +90,6 @@ function disable() {
 	Main.panel._rightBox.remove_actor(button.actor);
 	tactive = false;
 	tick = 0;
-	inputSec = inputLast;
 	Mainloop.source_remove(timeout);
 }
 //Function: init_items - draw and define the menu.
@@ -133,12 +132,13 @@ function init_items(button) {
 				if(tactive) { //if already running and new time entered
 					tick = 0;
 					inputSec = decodeSeconds(o.get_text().toLowerCase());
-					inputLast = inputSec;
+					inputLast = o.get_text().toLowerCase();
 				} else { //if not, turn it on.
+					tactive = true;					
 					inputSec = decodeSeconds(o.get_text().toLowerCase());
-					inputLast = inputSec;
+					inputLast = o.get_text().toLowerCase();
 					active.setToggleState(true);
-					tactive = true;
+					//tactive = true;
 					Count();
 				}
 			}
@@ -157,9 +157,10 @@ function init_items(button) {
 //Function: activeState - event for Active switch.
 function activeState(item) {
 	if (item.state) {
+		inputSec = decodeSeconds(inputLast);		
 		if (inputSec == 0) {
 			inputSec = 	defaultDelay;
-		}	
+		}
 		tactive = true;
 		timeL.text = print_timeL(timeStr(0,0,inputSec), true);
 		Count();
@@ -167,7 +168,6 @@ function activeState(item) {
 		tactive = false;
 		tick = 0;
 		timeL.text = print_timeL(0, false);
-		inputSec = inputLast;
 	}
 }
 //Function: notifyState - event for Notifications switch.
@@ -190,7 +190,9 @@ function decodeSeconds(intext) {
 		if(parseInt(intext) == 0 && preventZero) {
 			return false;
 		}
-		timeL.text = print_timeL(timeStr(0,0,(intext * 60)), true);
+		if (tactive) {
+			timeL.text = print_timeL(timeStr(0,0,(intext * 60)), true);
+		}
 		return intext*60;
 	}
 	var h; //hours
@@ -247,7 +249,9 @@ function decodeSeconds(intext) {
 		return false;
 	}
 	var now = new Date();
-	timeL.text = print_timeL(timeStr(parseInt(h),parseInt(m)), true);
+	if (tactive) {
+		timeL.text = print_timeL(timeStr(parseInt(h),parseInt(m)), true);
+	}
 	if ((now.getHours() * 60 + now.getMinutes()) < (h * 60 + m)) {
 		//timeL.text = print_timeL(timeStr(0,0,((((h * 60 + m) - (now.getHours() * 60 + now.getMinutes())) * 60) - now.getSeconds())), true);
 		return ((((h * 60 + m) - (now.getHours() * 60 + now.getMinutes())) * 60) - now.getSeconds());
@@ -323,11 +327,10 @@ function timeStr(h,m,delay) {
 }
 //Function: print_timeL - change text of Time Label. time[time string],active[bool]
 function print_timeL(time, active) {
-	var on = _("The System will Power Off at %s");
+	var on = _("The System will Power Off at %s".format(time));
 	var off = _("Timer is currently inactive.");
 	if (active) {
-		var sign = on.indexOf("%s");
-		return on.substring(0, sign) + time + on.substring(sign + 2, on.length);
+		return on;
 	} else {
 		return off;
 	}
@@ -357,13 +360,7 @@ function remainStr(iS, eS) {
 //Function: ntf - Send desktop notification
 function ntf(t)
 {
-<<<<<<< HEAD
-	var msg = _("The system will power off in %s minutes.");
-=======
-	var msg = _("The system will power off in %s minutes.")	
->>>>>>> 37f13f0822d3a7033b818983da93a6990d727f6c
-	var sign = msg.indexOf("%s");
-	msg = msg.substring(0, sign) + t + msg.substring(sign + 2, msg.length);    
+	var msg = _("The system will power off in %s minutes.".format(t));
 	let src = new MessageTray.SystemNotificationSource();
     Main.messageTray.add(src);
     let notification = new MessageTray.Notification(src, msg, null);
